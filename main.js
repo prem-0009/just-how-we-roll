@@ -55,16 +55,18 @@ const roll6 = function () {
   imgSix.src = `/images/d6/${num}.png`;
   sixes.push(num);
   document.querySelector("#d6-rolls-mean").innerText = Mean(sixes);
+  document.querySelector('#d6-rolls-median').innerText = median(sixes);
 };
 
 //two six dices
 const roll2six = function () {
   let num1 = getRandomNumber(6);
   let num2 = getRandomNumber(6);
-  doubleSixes.push(num1, num2);
+  doubleSixes.push(num1 + num2);
   imgsix1.src = `./images/d6/${num1}.png`;
   imgsix2.src = `./images/d6/${num2}.png`;
   document.querySelector("#double-d6-rolls-mean").innerText = Mean(doubleSixes);
+  document.querySelector('#double-d6-rolls-median').innerText = median(doubleSixes);
 };
 
 //roll dice12
@@ -73,6 +75,7 @@ const roll12 = function(){
   twelves.push(num);
   img12.src = `./images/numbers/${num}.png`;
   document.querySelector('#d12-rolls-mean').innerText = Mean(twelves);
+  document.querySelector('#d12-rolls-median').innerText = median(twelves);
 }
 
 //roll dice20
@@ -111,7 +114,7 @@ const resetAll = function () {
   document.querySelector("#double-d6-rolls-mean").innerHTML = `&nbsp`;
   document.querySelector("#d12-rolls-mean").innerHTML = `&nbsp`;
   document.querySelector("#d20-rolls-mean").innerHTML = `&nbsp`;
-
+  document.querySelector("#d20-rolls-median").innerHTML = `&nbsp`;
 };
 
 reset1.addEventListener("click", resetAll);
@@ -132,10 +135,10 @@ const median = function (arr){
   // let midValue = [];?
   let result = 0
   var newArr = sortByNumber(arr);
-  if (newArr.length % 2 != 0){
-    result = Math.ceil(newArr[newArr.length/2])
+  if (newArr.length % 2 !== 0){
+    result = newArr[Math.floor(newArr.length/2)];
   } else {
-    result = (newArr[newArr.length/2] + newArr[(newArr.length/2) + 1]) / 2;
+    result = (newArr[newArr.length/2] + newArr[(newArr.length/2) - 1]) / 2;
   }
 
   return result;
